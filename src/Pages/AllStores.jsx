@@ -18,7 +18,7 @@ function AllStores() {
             render: logo => {
                 return (
              
-                        <Avatar size="large" src={logo} />
+                        <Avatar size="large" src={logo} style={{objectFit:'cover'}}/>
                     
                 )
 

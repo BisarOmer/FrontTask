@@ -111,7 +111,7 @@ function StoreManagement() {
                             <Card
                                 hoverable
                                 style={{ width: "100%" }}
-                                cover={<img alt="example" src={store.logo} onClick={() => { navigate("store/" + store.id) }} />}
+                                cover={<img alt="example" src={store.logo} onClick={() => { navigate("store/" + store.id) }} style={{minHeight:"250px",maxHeight:"250px",objectFit:"cover"}}/>}
                                 actions={[
                                     <Popconfirm placement="top" title="There is no way to back" onConfirm={() => confirm(store.id)} okText="Yes" cancelText="No">
                                         <DeleteOutlined />

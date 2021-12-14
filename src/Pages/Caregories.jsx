@@ -116,7 +116,7 @@ function ViewStore() {
                                     onClick={() => { navigate("../products/" + item.id, { state: item.name }) }}
                                     hoverable
                                     style={{ width: 240 }}
-                                    cover={<img alt="example" src={item.image} />}
+                                    cover={<img alt="example" src={item.image} style={{ minHeight: "250px", maxHeight: "250px", objectFit: "cover" }} />}
                                 >
                                     <Card.Meta title={item.name} />
                                 </Card>
@@ -170,7 +170,7 @@ function ViewStore() {
                             name="photo"
                             rules={[{ required: true }]}
                         >
-                            <Input placeholder="category's name" onChange={e => setCategoryInfo({ ...categoryInfo, image: e.target.value })} prefix={<PictureOutlined />} />
+                            <Input placeholder="category's photo link" onChange={e => setCategoryInfo({ ...categoryInfo, image: e.target.value })} prefix={<PictureOutlined />} />
                         </Form.Item>
 
                         <Typography.Text>category's name </Typography.Text>
