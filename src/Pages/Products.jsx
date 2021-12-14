@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Space, Tag, Input, Typography, Row, Modal, Upload, message, Form } from 'antd';
-import { TagOutlined, DollarOutlined, LoadingOutlined, PlusOutlined, AppstoreAddOutlined, PictureOutlined } from "@ant-design/icons";
+import { TagOutlined, DollarOutlined, LoadingOutlined, PlusOutlined, AppstoreAddOutlined, PictureOutlined, FolderOutlined } from "@ant-design/icons";
 
 import { useParams, useLocation } from "react-router-dom";
 
@@ -47,12 +47,12 @@ function Products() {
     const [loading, setLoading] = useState();
     const [imageUrl, setImageUrl] = useState();
     const [product, setProduct] = useState(ProductAttributes)
-    const [products, setProducts] = useState()
+    const [products, setProducts] = useState([])
 
     const [form] = Form.useForm();
 
     useEffect(() => {
-        let findProductByCategory = allProducts.filter(product => product.categoryId == params.categoryId)
+        let findProductByCategory = allProducts.filter(product => product.categoryId === params.categoryId)
         setProducts(findProductByCategory)
     }, [])
 
@@ -124,7 +124,7 @@ function Products() {
                 </Tag>
 
                 <Row gutter={[24, 16]}>
-                    {products?.map(product => {
+                    {products ? products?.map(product => {
                         return (
                             <Col span={6} key={product.id}>
                                 <Card
@@ -140,7 +140,16 @@ function Products() {
                                 </Card>
                             </Col>
                         )
-                    })}
+                    })
+                        :
+                        <Row justify='center' align='center'>
+                            <Space direction="vertical" style={{ width: "100%" }}>
+                                <FolderOutlined />
+                                <Typography.Title level={4}>Empty</Typography.Title>
+                                <Typography.Text >Add product you will see theme here</Typography.Text>
+                            </Space>
+                        </Row>
+                    }
 
                 </Row>
             </Card>

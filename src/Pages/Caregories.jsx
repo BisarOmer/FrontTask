@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card, Col, Space, Form, Input, Select, Typography, Row, Modal, Avatar, Upload, message } from 'antd';
-import { TagOutlined, LoadingOutlined, PlusOutlined, PictureOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Button, Card, Col, Space, Form, Input, Typography, Row, Modal, message } from 'antd';
+import { TagOutlined, LoadingOutlined, PlusOutlined, PictureOutlined ,FolderOutlined} from "@ant-design/icons";
+
 //redux
 import { useSelector, useDispatch } from 'react-redux'
 import { addCategory } from '../Reducers/categorySlice'
@@ -20,7 +20,7 @@ function ViewStore() {
     let navigate = useNavigate();
     const dispatch = useDispatch()
 
-    const allShops = useSelector((state) => state.shops.shops)
+
     const allCategories = useSelector((state) => state.categories.categories)
 
     const categoryAttributes = {
@@ -34,10 +34,10 @@ function ViewStore() {
     const [loading, setLoading] = useState();
     const [imageUrl, setImageUrl] = useState();
     const [categoryInfo, setCategoryInfo] = useState(categoryAttributes)
-    const [cateogries, setCategories] = useState()
+    const [cateogries, setCategories] = useState([])
 
     useEffect(() => {
-        let findCategoryByStore = allCategories.filter(category => category.storeId == params.storeId)
+        let findCategoryByStore = allCategories.filter(category => category.storeId === params.storeId)
         setCategories(findCategoryByStore)
     }, [])
 
@@ -108,7 +108,7 @@ function ViewStore() {
 
             <Card>
                 <Row gutter={[24, 16]}>
-                    {cateogries?.map(item => {
+                    {cateogries.length ? cateogries?.map(item => {
                         return (
                             <Col span={6} key={item.id}>
 
@@ -123,7 +123,16 @@ function ViewStore() {
 
                             </Col>
                         )
-                    })}
+                    })
+                        :
+                        <Row justify='center' align='center'>
+                            <Space direction="vertical" style={{ width: "100%" }}>
+                                <FolderOutlined />
+                                <Typography.Title level={4}>Empty</Typography.Title>
+                                <Typography.Text >Add Category you will see theme here</Typography.Text>
+                            </Space>
+                        </Row>
+                    }
 
                 </Row>
             </Card>

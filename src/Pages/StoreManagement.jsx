@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Form, Typography, Card, Row, Modal, Button, Space, Col, Switch, Upload, message } from 'antd';
+import { Input, Form, Typography, Card, Row, Modal, Button, Space, Col, Switch, message } from 'antd';
 import { UserOutlined, PictureOutlined, PhoneOutlined, CompassOutlined, LoadingOutlined, PlusOutlined, FolderOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 //redux

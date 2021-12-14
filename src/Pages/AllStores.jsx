@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Table, Avatar, Form, Typography, Card, Tag } from 'antd';
-import { UserOutlined, EditOutlined } from '@ant-design/icons';
 
 import { useSelector } from 'react-redux'
 
