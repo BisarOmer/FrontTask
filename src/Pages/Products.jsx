@@ -40,7 +40,8 @@ function Products() {
     const ProductAttributes = {
         id: '',
         categoryId: params.categoryId,
-        image: 'https://play-lh.googleusercontent.com/384jx3OL4_tqtCGZrfIB6Q5TehM0Q7TLYFsenRPfeT8f-3vicWH2BYbvaEAneaPFMMM',
+        //default
+        image: 'https://www.arraymedical.com/wp-content/uploads/2018/12/product-image-placeholder.jpg',
         name: '',
         price: ""
     };
@@ -101,9 +102,11 @@ function Products() {
     const onFinish = () => {
         message.success('Successfully Added');
         setIsModalVisible(false);
-        product.id = Math.floor(Math.random() * 100)
+        setProduct({ ...product, id: Math.floor(Math.random() * 100) })
         setProducts([...products, product])
         dispatch(addProduct(product))
+        setProduct(ProductAttributes)
+        form.resetFields()
     };
 
     return (
@@ -165,15 +168,6 @@ function Products() {
                 ]}
             >
                 <Space direction="vertical" style={{ width: "100%" }}>
-                    {/* <Upload
-                        name="avatar"
-                        listType="picture-card"
-                        className="avatar-uploader"
-                        showUploadList={false}
-                        onChange={handleChangePhoto}
-                    >
-                        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-                    </Upload> */}
                     <Form
                         form={form}
                         layout="vertical"
@@ -202,7 +196,7 @@ function Products() {
                             name="price"
                             rules={[{ required: true }]}
                         >
-                            <Input placeholder="Price" prefix={<DollarOutlined />} onChange={e => setProduct({ ...product, price: e.target.value })} />
+                            <Input type='number' placeholder="Price" prefix={<DollarOutlined />} onChange={e => setProduct({ ...product, price: e.target.value })} />
                         </Form.Item>
 
                         <Form.Item

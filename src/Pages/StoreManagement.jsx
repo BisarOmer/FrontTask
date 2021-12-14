@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Input, Form, Typography, Card, Row, Modal, Button, Space, Col, Switch, message } from 'antd';
-import { UserOutlined, PictureOutlined, PhoneOutlined, CompassOutlined, LoadingOutlined, PlusOutlined, FolderOutlined } from '@ant-design/icons';
+import { Input, Form, Typography, Card, Row, Modal, Button, Space, Col, Switch, message, Popconfirm } from 'antd';
+import { UserOutlined, PictureOutlined, PhoneOutlined, CompassOutlined, LoadingOutlined, PlusOutlined, FolderOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 //redux
 import { useSelector, useDispatch } from 'react-redux'
-import { addShop } from '../Reducers/shopSlice'
+import { addShop, deleteShop } from '../Reducers/shopSlice'
 
 
 function getBase64(img, callback) {
@@ -22,7 +22,8 @@ function StoreManagement() {
 
     const storeAttributes = {
         id: '',
-        logo: 'https://play-lh.googleusercontent.com/384jx3OL4_tqtCGZrfIB6Q5TehM0Q7TLYFsenRPfeT8f-3vicWH2BYbvaEAneaPFMMM',
+        //default logo
+        logo: 'https://cdn.logo.com/hotlink-ok/logo-social.png',
         name: '',
         address: '',
         phone: '',
@@ -85,7 +86,14 @@ function StoreManagement() {
         setIsModalVisible(false);
         storeInfo.id = Math.floor(Math.random() * 100)
         dispatch(addShop(storeInfo));
+        form.resetFields()
     };
+
+    function confirm(id) {
+        message.error('Deleted');
+        dispatch(deleteShop(id))
+
+    }
 
     return (
         <>
@@ -99,11 +107,17 @@ function StoreManagement() {
                 <Row gutter={[24, 16]}>
                     {allShops.length ? allShops.map(store => {
                         return <Col span={6} key={store.id}>
+
                             <Card
-                                onClick={() => { navigate("store/" + store.id) }}
                                 hoverable
                                 style={{ width: "100%" }}
-                                cover={<img alt="example" src={store.logo} />}
+                                cover={<img alt="example" src={store.logo} onClick={() => { navigate("store/" + store.id) }} />}
+                                actions={[
+                                    <Popconfirm placement="top" title="There is no way to back" onConfirm={() => confirm(store.id)} okText="Yes" cancelText="No">
+                                        <DeleteOutlined />
+                                    </Popconfirm>
+                                    ,
+                                ]}
                             >
                                 <Card.Meta title={store.name} />
                                 <Row style={{ marginTop: "10px" }}>
@@ -194,7 +208,7 @@ function StoreManagement() {
                             name="phone"
                             rules={[{ required: true }]}
                         >
-                            <Input placeholder="phone number" onChange={e => setStoreInfo({ ...storeInfo, phone: e.target.value })} prefix={<PhoneOutlined />} />
+                            <Input placeholder="phone number" type="tel" onChange={e => setStoreInfo({ ...storeInfo, phone: e.target.value })} prefix={<PhoneOutlined />} />
                         </Form.Item>
 
                         <Form.Item>

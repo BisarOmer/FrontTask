@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Col, Space, Form, Input, Typography, Row, Modal, message } from 'antd';
-import { TagOutlined, LoadingOutlined, PlusOutlined, PictureOutlined ,FolderOutlined} from "@ant-design/icons";
+import { TagOutlined, LoadingOutlined, PlusOutlined, PictureOutlined, FolderOutlined } from "@ant-design/icons";
 
 //redux
 import { useSelector, useDispatch } from 'react-redux'
@@ -55,7 +55,6 @@ function ViewStore() {
         setCategories([...cateogries, categoryInfo])
     };
 
-
     const handleChangePhoto = info => {
         if (info.file.status === 'uploading') {
             setLoading(true)
@@ -85,15 +84,16 @@ function ViewStore() {
 
     const handleOk = () => {
         setIsModalVisible(false);
-        categoryInfo.id = Math.floor(Math.random() * 100)
+        setCategoryInfo({ ...categoryInfo, id: Math.floor(Math.random() * 100) })
         dispatch(addCategory(categoryInfo))
         setCategories([...cateogries, categoryInfo])
+        setCategoryInfo(categoryAttributes)
+        form.resetFields()
     };
 
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-
 
     return (
         <>
